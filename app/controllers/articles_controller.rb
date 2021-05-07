@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  skip_before_action :authenticate_user!, :only => [:index, :edit, :search]
+  skip_before_action :authenticate_user!, :only => [:index, :search]
 
 
   def index
@@ -8,10 +8,6 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-  end
-
-  def edit
-    @article = Article.find(params[:name])
   end
 
   def search
