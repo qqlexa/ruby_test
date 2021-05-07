@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-  # before_action :authenticate_user!, :except => [:show, :index]
   skip_before_action :authenticate_user!, :only => [:index, :edit, :search]
 
 
@@ -12,9 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    # redirect_to :new_user_session_path, notice: "Book not found"
     @article = Article.find(params[:name])
-    # {"key": "value"}
   end
 
   def search
