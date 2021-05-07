@@ -6,3 +6,8 @@
   <p><%= @article.body %></p>
 <% end %>
 
+<%= form_with url: "/articles/search", method: :get do |form| %>
+  <%= form.label :name, "Search for:" %>
+  <%= form.text_field :name %>
+  <%= form.submit "Search by name" %>
+<% end %>
