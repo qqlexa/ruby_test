@@ -1,8 +1,27 @@
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<h1>Edit Question</h1>
 
-<%= form_with url: "/search", method: :get do |form| %>
-  <%= form.label :name, "Search for:" %>
-  <%= form.text_field :name %>
-  <%= form.submit "Search by name" %>
+<%= form_with model: @question do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </div>
+
+  <div>
+    <%= form.label :answer %><br>
+    <%= form.text_field :answer %>
+  </div>
+
+  <div>
+    <%= form.label :payment %><br>
+    <%= form.number_field :payment %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
 <% end %>

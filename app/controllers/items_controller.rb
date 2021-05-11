@@ -20,6 +20,12 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def buy
+    @item = Item.find(params[:id])
+    @admin = admin?
+    render :buy
+  end
+
   def update
     @item = Item.find(params[:id])
 

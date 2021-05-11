@@ -12,10 +12,23 @@ class QuestionsController < ApplicationController
     @admin = admin?
   end
 
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+
+    @question.title = params[:question][:title]
+    @question.body = params[:question][:body]
+    @question.answer = params[:question][:answer]
+    @question.payment = params[:question][:payment]
+    @question.save
+    redirect_to question_path
+  end
+
   def search
     @question = Question.find_by_title(params[:name])
-    @question.title = '123'
-    @question.save
   end
 
   def new
@@ -33,11 +46,14 @@ class QuestionsController < ApplicationController
     end
   end
 
+
+
   def destroy
     @question = Question.find(params[:id])
     @question.destroy
     redirect_to controller: 'questions', action: 'index'
   end
+
 
 
   def admin?

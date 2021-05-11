@@ -4,7 +4,13 @@
 <p>Should be hidden <%= @question.answer %></p>
 <p>Payment for this stage <%= @question.payment %></p>
 
+<%= link_to "Back", questions_url,
+            method: :get %>
+
+
 <% if @admin %>
+  <%= link_to "Edit", edit_question_path(@question),
+              method: :get %>
   <%= link_to "Destroy", question_path(@question),
               method: :delete,
               data: { confirm: "Are you sure?" } %>
