@@ -3,6 +3,8 @@
 <p><%= @item.body %></p>
 
 <% if @admin %>
+  <%= link_to "Edit", edit_item_path(@item),
+              method: :get %>
   <%= link_to "Destroy", item_path(@item),
               method: :delete,
               data: { confirm: "Are you sure?" } %>

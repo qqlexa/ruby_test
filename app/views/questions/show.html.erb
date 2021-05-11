@@ -1,0 +1,11 @@
+<h1><%= @question.title %></h1>
+
+<p><%= @question.body %></p>
+<p>Should be hidden <%= @question.answer %></p>
+<p>Payment for this stage <%= @question.payment %></p>
+
+<% if @admin %>
+  <%= link_to "Destroy", question_path(@question),
+              method: :delete,
+              data: { confirm: "Are you sure?" } %>
+<% end %>

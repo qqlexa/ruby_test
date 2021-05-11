@@ -22,11 +22,11 @@
         <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
       <% end %>
     </p>
-    <% unless notice.blank? %>
-    <p class="notice"><%=  notice  %></p>
+    <% unless @notice.blank? %>
+    <p class="notice"><%=  @notice  %></p>
     <%  end %>
-    <% unless alert.blank? %>
-    <p class="alert"><%=  alert  %></p>
+    <% unless @alert.blank? %>
+    <p class="alert"><%=  @alert  %></p>
     <%  end %>
 
     <%= yield %>

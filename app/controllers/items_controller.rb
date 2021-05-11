@@ -16,17 +16,30 @@ class ItemsController < ApplicationController
     @item = Item.find_by_title(params[:name])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+
+    @item.title = params[:item][:title]
+    @item.body = params[:item][:body]
+    @item.price = params[:item][:price]
+    @item.save
+    redirect_to market_path
+  end
+
   def new
     @item = Item.new
   end
 
   def create
     @item = Item.new(item_params)
-
     if @item.save
       redirect_to market_path
     else
-      @error_message = 'There is problem with creating a new item'
+      @notice = 'There is problem with creating a new item'
       render :new
     end
   end
