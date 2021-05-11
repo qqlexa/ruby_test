@@ -23,15 +23,19 @@ class ItemsController < ApplicationController
   def buy
     @item = Item.find(params[:id])
     @admin = admin?
+    # Add buy system
+    # User's balance should decrease, when he buys something
+    # if balance - item.price > 0
+    #   render :buy
+    # else
+    #   error
+    # end
     render :buy
   end
 
   def update
     @item = Item.find(params[:id])
-
-    @item.title = params[:item][:title]
-    @item.body = params[:item][:body]
-    @item.price = params[:item][:price]
+    @item.update(item_params)
     @item.save
     redirect_to market_path
   end
@@ -55,7 +59,6 @@ class ItemsController < ApplicationController
     @item.destroy
     redirect_to controller: 'items', action: 'index'
   end
-
 
   def admin?
     true

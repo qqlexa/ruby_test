@@ -13,7 +13,7 @@
 
 <% if @admin %>
   <h2>Add a new item</h2>
-  <%= form_with url: "/items", method: :post do |form| %>
+  <%= form_with model: @item, url: "/items", method: :post do |form| %>
     <p>
       <%= form.label :title %><br>
       <%= form.text_field :title %>

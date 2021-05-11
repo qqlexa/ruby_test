@@ -18,11 +18,7 @@ class QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
-
-    @question.title = params[:question][:title]
-    @question.body = params[:question][:body]
-    @question.answer = params[:question][:answer]
-    @question.payment = params[:question][:payment]
+    @question.update(question_params)
     @question.save
     redirect_to question_path
   end
@@ -39,22 +35,18 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     if @question.save
-      redirect_to question_path
+      redirect_to question_path @question
     else
       @notice = 'There is problem with creating a new question'
       render :new
     end
   end
 
-
-
   def destroy
     @question = Question.find(params[:id])
-    @question.destroy
+    @question.destroy if @question.present?
     redirect_to controller: 'questions', action: 'index'
   end
-
-
 
   def admin?
     true
