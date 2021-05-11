@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get :search
     end
   end
+  get '/market', to: 'items#index'
   resources :items do
     collection do
       get :search

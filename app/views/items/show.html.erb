@@ -1,0 +1,9 @@
+<h1><%= @item.title %></h1>
+
+<p><%= @item.body %></p>
+
+<% if @admin %>
+  <%= link_to "Destroy", item_path(@item),
+              method: :delete,
+              data: { confirm: "Are you sure?" } %>
+<% end %>
