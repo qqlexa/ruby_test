@@ -12,10 +12,6 @@ class QuestionsController < ApplicationController
     @admin = admin?
   end
 
-  def edit
-    @question = Question.find(params[:id])
-  end
-
   def update
     @question = Question.find(params[:id])
     @question.update(question_params)
@@ -25,6 +21,25 @@ class QuestionsController < ApplicationController
 
   def search
     @question = Question.find_by_title(params[:name])
+  end
+
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def solve
+    @question = Question.find(params[:id])
+    params[:id]
+
+    @admin = admin?
+
+    if @question.answer == params[:user_answer]
+      render :solved
+    else
+      @notice = 'Answer is incorrect'
+      render :show
+    end
+
   end
 
   def new

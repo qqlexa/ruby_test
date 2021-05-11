@@ -1,0 +1,7 @@
+<h1>Success! You solved <%= @question.title %> question</h1>
+<h2><%= @answer %></h2>
+
+<p>Your payment for this stage is <%= @question.payment %></p>
+
+<%= link_to "Back", questions_url,
+            method: :get %>

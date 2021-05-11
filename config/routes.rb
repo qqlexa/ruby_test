@@ -11,13 +11,19 @@ Rails.application.routes.draw do
   end
   get '/market', to: 'items#index'
   resources :items do
+    member do
+      get :buy
+    end
+
     collection do
       get :search
-      get :buy
     end
   end
 
   resources :questions do
+    member do
+      post :solve
+    end
     collection do
       get :search
     end
