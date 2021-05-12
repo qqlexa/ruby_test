@@ -1,7 +1,6 @@
 class ItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :search]
 
-
   def index
     @items = Item.all
     @admin = admin?
@@ -23,9 +22,7 @@ class ItemsController < ApplicationController
   def buy
     @item = Item.find(params[:id])
     @admin = admin?
-    # Add buy system
-    # User's balance should decrease, when he buys something
-    # byebug
+
     if current_user.balance - @item.price > 0
       @inventory = Inventory.new(user_id: current_user.id, item_id: @item.id)
       if @inventory.save
@@ -63,7 +60,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    @item.destroy
+    @item.destroy if @item.destroy.present?
     redirect_to controller: 'items', action: 'index'
   end
 

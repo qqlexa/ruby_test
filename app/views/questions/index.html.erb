@@ -1,17 +1,19 @@
 <h1>Questions#index</h1>
 <p>Find me in app/views/questions/index.html.erb</p>
 <ul>
-  <% @questions.each do |question| %>
-    <li>
-        <a href="/questions/<%= question.id %>">
-          <%= question.title %>
-        </a>
-    </li>
+  <% if can? :read, current_user %>
+    <% @questions.each do |question| %>
+      <li>
+          <a href="/questions/<%= question.id %>">
+            <%= question.title %>
+          </a>
+      </li>
+    <% end %>
   <% end %>
 
 </ul>
 
-<% if @admin %>
+<% if can? :update, current_user %>
   <h2>Add a new question</h2>
   <%= form_with model: @question, url: "/questions", method: :post do |form| %>
     <p>

@@ -1,10 +1,9 @@
 class InventoriesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :search]
+  before_action :authenticate_user!
 
   def index
     @inventories = Inventory.where(user_id: current_user.id)
     @admin = admin?
-
   end
 
   def show
@@ -12,14 +11,7 @@ class InventoriesController < ApplicationController
     @admin = admin?
   end
 
-  def destroy
-    @inventory = Inventory.find(params[:id])
-    @inventory.destroy
-    redirect_to controller: 'inventories', action: 'index'
-  end
-
   def admin?
     true
   end
-  
 end

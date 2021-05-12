@@ -41,7 +41,6 @@ class QuestionsController < ApplicationController
       @notice = 'Answer is incorrect'
       render :show
     end
-
   end
 
   def new
