@@ -2,30 +2,14 @@ class InventoriesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :search]
 
   def index
-    # current_user.id
-    @inventories = Inventory.find_by_user_id(1)
+    @inventories = Inventory.where(user_id: current_user.id)
     @admin = admin?
-
-    # byebug
 
   end
 
   def show
     @inventory = Inventory.find(params[:id])
     @admin = admin?
-  end
-
-  def buy
-    @inventory = Inventory.find(params[:id])
-    @admin = admin?
-    # Add buy system
-    # User's balance should decrease, when he buys something
-    # if balance - inventory.price > 0
-    #   render :buy
-    # else
-    #   error
-    # end
-    render :buy
   end
 
   def update

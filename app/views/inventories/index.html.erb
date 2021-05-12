@@ -6,7 +6,7 @@
   <% else %>
     <% @inventories.each do |inventory| %>
       <li>
-        <a href="/items/<%= inventory.id %>">
+        <a href="/inventories/<%= inventory.id %>">
           <%= inventory.user_id %>
           <%= inventory.item_id %>
         </a>

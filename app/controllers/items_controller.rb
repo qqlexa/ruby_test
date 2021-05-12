@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
     # byebug
     if current_user.balance - @item.price > 0
       @inventory = Inventory.new(user_id: current_user.id, item_id: @item.id)
-      if @item.save
+      if @inventory.save
         current_user.balance -= @item.price
         current_user.save
         render :buy
