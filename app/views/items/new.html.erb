@@ -1,22 +1,24 @@
-<h1>New Item</h1>
+<% if can? :update, current_user %>
+  <h1>New Item</h1>
 
-<%= form_with model: @item do |form| %>
-  <div>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </div>
+  <%= form_with model: @item do |form| %>
+    <div>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </div>
 
-  <div>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %>
-  </div>
+    <div>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </div>
 
-  <div>
-    <%= form.label :price %><br>
-    <%= form.number_field :price %>
-  </div>
+    <div>
+      <%= form.label :price %><br>
+      <%= form.number_field :price %>
+    </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
 <% end %>

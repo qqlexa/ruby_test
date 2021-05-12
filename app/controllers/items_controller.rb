@@ -60,7 +60,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    @item.destroy if @item.destroy.present?
+    @item.destroy if @item.present?
     redirect_to controller: 'items', action: 'index'
   end
 

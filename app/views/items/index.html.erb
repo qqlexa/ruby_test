@@ -11,7 +11,7 @@
 
 </ul>
 
-<% if @admin %>
+<% if can? :update, current_user %>
   <h2>Add a new item</h2>
   <%= form_with model: @item, url: "/items", method: :post do |form| %>
     <p>

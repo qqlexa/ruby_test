@@ -17,7 +17,7 @@
 <%= link_to "Buy", controller: "items", action: "buy", id: @item,
             method: :get %>
 
-<% if @admin %>
+<% if can? :update, current_user %>
   <%= link_to "Edit", edit_item_path(@item),
               method: :get %>
   <%= link_to "Destroy", item_path(@item),
