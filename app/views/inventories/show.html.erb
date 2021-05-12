@@ -1,26 +1,15 @@
 <div class="description">
-  <div class="title">
-    <h1><%= @item.title %></h1>
+  <div class="@inventory_id">
+    <h1><%= @inventory.id %></h1>
   </div>
-  <div class="price">
-    <h3>Price</h3>
-    <h3><%= @item.price %></h3>
+  <div class="user_id">
+    <h3>user_id</h3>
+    <h3><%= @inventory.user_id %></h3>
   </div>
-  <div class="body">
-    <h3>Body</h3>
-    <h3><%= @item.body %></h3>
+  <div class="item_id">
+    <h3>item_id</h3>
+    <h3><%= @inventory.item_id %></h3>
   </div>
 </div>
 <%= link_to "Back", market_path,
             method: :get %>
-
-<%= link_to "Buy", controller: "items", action: "buy", id: @item,
-            method: :get %>
-
-<% if @admin %>
-  <%= link_to "Edit", edit_item_path(@item),
-              method: :get %>
-  <%= link_to "Destroy", item_path(@item),
-              method: :delete,
-              data: { confirm: "Are you sure?" } %>
-<% end %>
