@@ -30,6 +30,7 @@ class ItemsController < ApplicationController
       @inventory = Inventory.new(user_id: current_user.id, item_id: @item.id)
       if @item.save
         current_user.balance -= @item.price
+        current_user.save
         render :buy
       else
         @alert = 'Error with buying'

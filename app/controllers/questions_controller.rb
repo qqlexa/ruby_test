@@ -34,6 +34,8 @@ class QuestionsController < ApplicationController
     @admin = admin?
 
     if @question.answer == params[:user_answer]
+      current_user.balance += @question.payment
+      current_user.save
       render :solved
     else
       @notice = 'Answer is incorrect'
