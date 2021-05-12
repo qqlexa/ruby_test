@@ -9,6 +9,11 @@ Rails.application.routes.draw do
       get :search
     end
   end
+
+  get '/me', to: 'inventories#index'
+  resources :inventories do
+  end
+
   get '/market', to: 'items#index'
   resources :items do
     member do

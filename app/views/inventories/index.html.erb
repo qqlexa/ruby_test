@@ -1,0 +1,13 @@
+<h1>Inventory#index</h1>
+<p>Find me in app/views/inventory/index.html.erb</p>
+<ul>
+  <% @inventories.each do |inventory| %>
+    <li>
+        <a href="/items/<%= inventory.id %>">
+          <%= inventory.user_id %>
+          <%= inventory.item_id %>
+        </a>
+    </li>
+  <% end %>
+
+</ul>
