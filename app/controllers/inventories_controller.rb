@@ -12,13 +12,6 @@ class InventoriesController < ApplicationController
     @admin = admin?
   end
 
-  def update
-    @inventory = Inventory.find(params[:id])
-    @inventory.update(inventory_params)
-    @inventory.save
-    redirect_to market_path
-  end
-
   def destroy
     @inventory = Inventory.find(params[:id])
     @inventory.destroy
@@ -28,14 +21,5 @@ class InventoriesController < ApplicationController
   def admin?
     true
   end
-
-  private
-
-  def inventory_params
-    if params[:title].nil?
-      params.require(:inventory).permit(:title, :body, :price)
-    else
-      params.permit(:title, :body, :price)
-    end
-  end
+  
 end
