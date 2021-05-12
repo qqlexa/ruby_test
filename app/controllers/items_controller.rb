@@ -25,12 +25,18 @@ class ItemsController < ApplicationController
     @admin = admin?
     # Add buy system
     # User's balance should decrease, when he buys something
-    # if balance - item.price > 0
-    #   render :buy
-    # else
-    #   error
-    # end
-    render :buy
+    # byebug
+    if current_user.balance - @item.price > 0
+      @inventory = Inventory.new(user_id: current_user.id, item_id: @item.id)
+      if @item.save
+        current_user.balance -= @item.price
+        render :buy
+      else
+        @alert = 'Error with buying'
+      end
+    else
+      @alert = 'You have not balance to do this'
+    end
   end
 
   def update
