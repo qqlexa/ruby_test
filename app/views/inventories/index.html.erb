@@ -7,13 +7,11 @@
     <% @inventories.each do |inventory| %>
       <li>
         <a href="/inventories/<%= inventory.id %>">
-          <%= inventory.user_id %>
-          <%= inventory.item_id %>
+          <%= Item.find(inventory.item_id).title %>
         </a>
       </li>
     <% end %>
   <% end %>
-
 </ul>
 <%= link_to "Back", market_path,
             method: :get %>

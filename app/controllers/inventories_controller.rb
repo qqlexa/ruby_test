@@ -5,12 +5,18 @@ class InventoriesController < ApplicationController
 
   def index
     @inventories = Inventory.where(user_id: current_user.id)
-    @admin = admin?
+    @items = []
+    @inventories.each do |inventory|
+      @item = Item.find(inventory.item_id)
+      @items.append(@item)
+    end
   end
 
   def show
     @inventory = Inventory.find(params[:id])
-    @admin = admin?
+
+    @user = User.find(@inventory.user_id)
+    @item = Item.find(@inventory.item_id)
   end
 
   def admin?

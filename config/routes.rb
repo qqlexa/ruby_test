@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/me', to: 'inventories#index'
   resources :inventories do
     member do
-      get :show
+      post :show
     end
   end
 

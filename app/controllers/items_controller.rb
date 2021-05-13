@@ -23,11 +23,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
 
     if (current_user.balance - @item.price).positive?
-      if @inventory.save
-        current_user.balance -= @item.price
-        current_user.save
-        render :buy
-      end
+      buy_item
     else
       @alert = 'You have not balance to do this'
     end
@@ -71,6 +67,17 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:title, :body, :price)
     else
       params.permit(:title, :body, :price)
+    end
+  end
+
+  def buy_item
+    @inventory = Inventory.new(user_id: current_user.id, item_id: @item.id)
+    if @inventory.save
+      current_user.balance -= @item.price
+      current_user.save
+      render :buy
+    else
+      @alert = 'Error with buying'
     end
   end
 end

@@ -1,15 +1,20 @@
 <div class="description">
-  <div class="@inventory_id">
-    <h1><%= @inventory.id %></h1>
-  </div>
   <div class="user_id">
-    <h3>user_id</h3>
-    <h3><%= @inventory.user_id %></h3>
+    <h3>user_id <%= @inventory.user_id %></h3>
   </div>
   <div class="item_id">
-    <h3>item_id</h3>
-    <h3><%= @inventory.item_id %></h3>
+    <h3>item_id <%= @inventory.item_id %></h3>
   </div>
+
+</div><br>
+<div class="user_info">
+  <h3>User email <%= @user.email %></h3>
+</div><br>
+<div class="item_info">
+  <h3>Item title: <%= @item.title %></h3>
+  <h3>Item body: <%= @item.body %></h3>
+  <h3>Item price: <%= @item.price %></h3>
 </div>
+
 <%= link_to "Back", market_path,
             method: :get %>
