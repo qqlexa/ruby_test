@@ -5,12 +5,10 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
-    @admin = admin?
   end
 
   def show
     @item = Item.find(params[:id])
-    @admin = admin?
   end
 
   def search
@@ -23,10 +21,13 @@ class ItemsController < ApplicationController
 
   def buy
     @item = Item.find(params[:id])
-    @admin = admin?
 
     if (current_user.balance - @item.price).positive?
-      buy_item
+      if @inventory.save
+        current_user.balance -= @item.price
+        current_user.save
+        render :buy
+      end
     else
       @alert = 'You have not balance to do this'
     end
@@ -70,16 +71,6 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:title, :body, :price)
     else
       params.permit(:title, :body, :price)
-    end
-  end
-
-  def buy_item
-    if @inventory.save
-      current_user.balance -= @item.price
-      current_user.save
-      render :buy
-    else
-      @alert = 'Error with buying'
     end
   end
 end
