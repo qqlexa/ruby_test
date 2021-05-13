@@ -56,10 +56,6 @@ class ItemsController < ApplicationController
     redirect_to controller: 'items', action: 'index'
   end
 
-  def admin?
-    true
-  end
-
   private
 
   def item_params

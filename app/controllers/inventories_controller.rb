@@ -18,8 +18,4 @@ class InventoriesController < ApplicationController
     @user = User.find(@inventory.user_id)
     @item = Item.find(@inventory.item_id)
   end
-
-  def admin?
-    true
-  end
 end

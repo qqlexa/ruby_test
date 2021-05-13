@@ -5,12 +5,10 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
-    @admin = admin?
   end
 
   def show
     @question = Question.find(params[:id])
-    @admin = admin?
   end
 
   def update
@@ -31,8 +29,6 @@ class QuestionsController < ApplicationController
   def solve
     @question = Question.find(params[:id])
     params[:id]
-
-    @admin = admin?
 
     check_result
   end
@@ -56,10 +52,6 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.destroy if @question.present?
     redirect_to controller: 'questions', action: 'index'
-  end
-
-  def admin?
-    true
   end
 
   private
