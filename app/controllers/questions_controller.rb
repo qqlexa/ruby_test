@@ -1,6 +1,7 @@
-class QuestionsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :search]
+# frozen_string_literal: true
 
+class QuestionsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index search]
 
   def index
     @questions = Question.all
@@ -19,12 +20,12 @@ class QuestionsController < ApplicationController
     redirect_to question_path
   end
 
-  def search
-    @question = Question.find_by_title(params[:name])
-  end
-
   def edit
     @question = Question.find(params[:id])
+  end
+
+  def search
+    redirect_to controller: 'questions', action: 'index'
   end
 
   def solve
@@ -33,14 +34,7 @@ class QuestionsController < ApplicationController
 
     @admin = admin?
 
-    if @question.answer == params[:user_answer]
-      current_user.balance += @question.payment
-      current_user.save
-      render :solved
-    else
-      @notice = 'Answer is incorrect'
-      render :show
-    end
+    check_result
   end
 
   def new
@@ -75,6 +69,17 @@ class QuestionsController < ApplicationController
       params.require(:question).permit(:title, :body, :answer, :payment)
     else
       params.permit(:title, :body, :answer, :payment)
+    end
+  end
+
+  def check_result
+    if @question.answer == params[:user_answer]
+      current_user.balance += @question.payment
+      current_user.save
+      render :solved
+    else
+      @notice = 'Answer is incorrect'
+      render :show
     end
   end
 end

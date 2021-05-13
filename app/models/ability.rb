@@ -3,9 +3,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    user ||= User.new
-
+  def initialize
     can :read, User
     can %i[read create update destroy], User, id: 1
 

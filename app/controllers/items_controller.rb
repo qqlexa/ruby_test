@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :search]
+  skip_before_action :authenticate_user!, only: %i[index search]
 
   def index
     @items = Item.all
@@ -12,7 +14,7 @@ class ItemsController < ApplicationController
   end
 
   def search
-    @item = Item.find_by_title(params[:name])
+    @item = Item.find_by(title: params[:name])
   end
 
   def edit
@@ -23,15 +25,8 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @admin = admin?
 
-    if current_user.balance - @item.price > 0
-      @inventory = Inventory.new(user_id: current_user.id, item_id: @item.id)
-      if @inventory.save
-        current_user.balance -= @item.price
-        current_user.save
-        render :buy
-      else
-        @alert = 'Error with buying'
-      end
+    if (current_user.balance - @item.price).positive?
+      buy_item
     else
       @alert = 'You have not balance to do this'
     end
@@ -75,6 +70,16 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:title, :body, :price)
     else
       params.permit(:title, :body, :price)
+    end
+  end
+
+  def buy_item
+    if @inventory.save
+      current_user.balance -= @item.price
+      current_user.save
+      render :buy
+    else
+      @alert = 'Error with buying'
     end
   end
 end

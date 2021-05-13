@@ -1,6 +1,7 @@
-class ArticlesController < ApplicationController
-  skip_before_action :authenticate_user!, :only => [:index, :search]
+# frozen_string_literal: true
 
+class ArticlesController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index search]
 
   def index
     @articles = Article.all
@@ -11,7 +12,6 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    @article = Article.find_by_title(params[:name])
+    @article = Article.find_by(title: params[:name])
   end
-
 end
