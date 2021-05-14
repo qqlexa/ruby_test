@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
+  include Devise::TestHelpers
   let(:current_user) do
     User.create!(
       email: 'currentuser@test.com',
