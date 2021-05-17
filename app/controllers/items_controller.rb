@@ -19,16 +19,6 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def buy
-    @item = Item.find(params[:id])
-
-    if (current_user.balance - @item.price).positive?
-      buy_item
-    else
-      @alert = 'You have not balance to do this'
-    end
-  end
-
   def update
     @item = Item.find(params[:id])
     @item.update(item_params)
@@ -43,7 +33,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to market_path
+      redirect_to items_path
     else
       @notice = 'There is problem with creating a new item'
       render :new
@@ -67,13 +57,6 @@ class ItemsController < ApplicationController
   end
 
   def buy_item
-    @inventory = Inventory.new(user_id: current_user.id, item_id: @item.id)
-    if @inventory.save
-      current_user.balance -= @item.price
-      current_user.save
-      render :buy
-    else
-      @alert = 'Error with buying'
-    end
+    redirect_to controller: 'inventories', action: 'create', item: @item
   end
 end

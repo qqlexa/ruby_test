@@ -11,10 +11,10 @@
     <h3><%= @item.body %></h3>
   </div>
 </div>
-<%= link_to "Back", market_path,
+<%= link_to "Back", items_path,
             method: :get %>
 
-<%= link_to "Buy", controller: "items", action: "buy", id: @item,
+<%= link_to "Buy", controller: "inventories", action: "buy", id: @item,
             method: :get %>
 
 <% if can? :update, current_user %>

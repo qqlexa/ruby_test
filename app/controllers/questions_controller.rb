@@ -38,8 +38,8 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params)
-
+    @answer = Answer.find_or_create_by(answer: params[:answer])
+    @question = Question.new(question_params.to_h.merge({ answer_id: @answer.id }))
     if @question.save
       redirect_to question_path @question
     else
@@ -58,9 +58,9 @@ class QuestionsController < ApplicationController
 
   def question_params
     if params[:title].nil?
-      params.require(:question).permit(:title, :body, :answer, :payment)
+      params.require(:question).permit(:title, :body, :payment)
     else
-      params.permit(:title, :body, :answer, :payment)
+      params.permit(:title, :body, :payment)
     end
   end
 

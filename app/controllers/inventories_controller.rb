@@ -18,4 +18,35 @@ class InventoriesController < ApplicationController
     @user = User.find(@inventory.user_id)
     @item = Item.find(@inventory.item_id)
   end
+
+  def buy
+    @item = Item.find(params[:id])
+
+    if (current_user.balance - @item.price).positive?
+      create
+    else
+      @alert = 'You have not balance to do this'
+    end
+  end
+
+  def create
+    @inventory = Inventory.new(user_id: current_user.id, item_id: @item.id)
+    if @inventory.save
+      current_user.balance -= @item.price
+      current_user.save
+      render :buy
+    else
+      @alert = 'Error with buying'
+    end
+  end
+
+  private
+
+  def inventory_params
+    if params[:title].nil?
+      params.require(:item).permit(:title, :body, :price)
+    else
+      params.permit(:title, :body, :price)
+    end
+  end
 end
