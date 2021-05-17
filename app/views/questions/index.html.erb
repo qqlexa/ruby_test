@@ -1,0 +1,38 @@
+<h1>Questions#index</h1>
+<p>Find me in app/views/questions/index.html.erb</p>
+<ul>
+  <% @questions.each do |question| %>
+    <li>
+        <a href="/questions/<%= question.id %>">
+          <%= question.title %>
+        </a>
+    </li>
+  <% end %>
+</ul>
+
+<% if can? :update, current_user %>
+  <h2>Add a new question</h2>
+  <%= form_with model: @question, url: "/questions", method: :post do |form| %>
+    <p>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </p>
+    <p>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </p>
+    <p>
+      <%= form.label :answer %><br>
+      <%= form.text_area :answer %>
+    </p>
+    <p>
+      <%= form.label :payment %><br>
+      <%= form.number_field :payment %>
+    </p>
+
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+<% end %>
+

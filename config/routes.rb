@@ -1,5 +1,23 @@
-Rails.application.routes.draw do
-  get "/articles", to: "articles#index"
+# frozen_string_literal: true
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+Rails.application.routes.draw do
+  devise_for :users
+  root to: 'items#index'
+
+  resources :inventories do
+    member do
+      post :show
+      get :buy
+    end
+  end
+
+  resources :items do
+    get :buy, on: :member
+    get :search, on: :collection
+  end
+
+  resources :questions do
+    post :solve, on: :member
+    get :search, on: :collection
+  end
 end

@@ -1,0 +1,29 @@
+<% if can? :update, current_user %>
+  <h1>New Question</h1>
+
+  <%= form_with model: @item do |form| %>
+    <div>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </div>
+
+    <div>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </div>
+
+    <div>
+      <%= form.label :answer %><br>
+      <%= form.text_field :answer %>
+    </div>
+
+    <div>
+      <%= form.label :payment %><br>
+      <%= form.number_field :payment %>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+<% end %>
