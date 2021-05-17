@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.update(item_params)
     @item.save
-    redirect_to market_path
+    redirect_to items_path
   end
 
   def new
@@ -54,9 +54,5 @@ class ItemsController < ApplicationController
     else
       params.permit(:title, :body, :price)
     end
-  end
-
-  def buy_item
-    redirect_to controller: 'inventories', action: 'create', item: @item
   end
 end

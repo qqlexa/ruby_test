@@ -9,8 +9,28 @@ RSpec.describe Item, type: :model do
       expect(item).to eq(false)
     end
 
+    it 'ensures title not short' do
+      item = described_class.new(title: 'T', body: 'Body', price: 0).save
+      expect(item).to eq(false)
+    end
+
+    it 'ensures title not long' do
+      item = described_class.new(title: 'T' * 31, body: 'Body', price: 0).save
+      expect(item).to eq(false)
+    end
+
     it 'ensures body presence' do
       item = described_class.new(title: 'Title', price: 0).save
+      expect(item).to eq(false)
+    end
+
+    it 'ensures body not short' do
+      item = described_class.new(title: 'Title', body: 'B', price: 0).save
+      expect(item).to eq(false)
+    end
+
+    it 'ensures body not long' do
+      item = described_class.new(title: 'Title', body: 'B' * 301, price: 0).save
       expect(item).to eq(false)
     end
 

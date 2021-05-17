@@ -24,8 +24,9 @@ class InventoriesController < ApplicationController
 
     if (current_user.balance - @item.price).positive?
       create
+      @alert = 'You bought'
     else
-      @alert = 'You have not balance to do this'
+      @alert = 'You have not balance to buy this'
     end
   end
 

@@ -9,11 +9,13 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answer = Answer.find(@question.answer_id)
   end
 
   def update
+    @answer = Answer.find_or_create_by(answer: params[:answer])
     @question = Question.find(params[:id])
-    @question.update(question_params)
+    @question.update(question_params.to_h.merge({ answer_id: @answer.id }))
     @question.save
     redirect_to question_path
   end
@@ -65,7 +67,8 @@ class QuestionsController < ApplicationController
   end
 
   def check_result
-    if @question.answer == params[:user_answer]
+    @answer = Answer.find(@question.answer_id)
+    if @answer.answer == params[:user_answer]
       current_user.balance += @question.payment
       current_user.save
       render :solved
